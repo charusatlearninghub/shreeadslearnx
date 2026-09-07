@@ -37,7 +37,7 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section className="relative flex min-h-[75vh] items-center overflow-hidden py-10 sm:py-16 md:min-h-screen md:py-0">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-surface" />
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
