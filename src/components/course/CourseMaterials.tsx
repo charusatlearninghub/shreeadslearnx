@@ -119,21 +119,25 @@ export function CourseMaterials({ courseId, hasAccess }: Props) {
       <div className="grid gap-3 sm:grid-cols-2">
         {materials.map((material) => (
           <Card key={material.id}>
-            <CardContent className="p-4 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                <FileText className="w-5 h-5" />
+            <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center gap-3">
+              <div className="flex items-center gap-3 flex-1 min-w-0">
+                <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                  <FileText className="w-5 h-5" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium break-words">{material.title}</p>
+                  <p className="text-xs text-muted-foreground">
+                    PDF {formatFileSize(material.file_size_bytes) && `• ${formatFileSize(material.file_size_bytes)}`}
+                  </p>
+                </div>
+                {!hasAccess && <Lock className="w-4 h-4 text-muted-foreground shrink-0" />}
               </div>
-              <div className="flex-1 min-w-0">
-                <p className="font-medium truncate">{material.title}</p>
-                <p className="text-xs text-muted-foreground">
-                  PDF {formatFileSize(material.file_size_bytes) && `• ${formatFileSize(material.file_size_bytes)}`}
-                </p>
-              </div>
-              {hasAccess ? (
-                <div className="flex items-center gap-2 shrink-0">
+              {hasAccess && (
+                <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto">
                   <Button
                     size="sm"
-                    variant="ghost"
+                    variant="outline"
+                    className="flex-1 sm:flex-none"
                     aria-label={`Preview ${material.title}`}
                     disabled={previewingId === material.id}
                     onClick={() => handlePreview(material)}
@@ -141,12 +145,15 @@ export function CourseMaterials({ courseId, hasAccess }: Props) {
                     {previewingId === material.id ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
                     ) : (
-                      <Eye className="w-4 h-4" />
+                      <>
+                        <Eye className="w-4 h-4 mr-1" />
+                        View
+                      </>
                     )}
                   </Button>
                   <Button
                     size="sm"
-                    variant="outline"
+                    className="flex-1 sm:flex-none"
                     aria-label={`Download ${material.title}`}
                     disabled={downloadingId === material.id}
                     onClick={() => handleDownload(material)}
@@ -161,8 +168,6 @@ export function CourseMaterials({ courseId, hasAccess }: Props) {
                     )}
                   </Button>
                 </div>
-              ) : (
-                <Lock className="w-4 h-4 text-muted-foreground shrink-0" />
               )}
             </CardContent>
           </Card>
