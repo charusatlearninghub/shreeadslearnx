@@ -120,7 +120,25 @@ export function CourseMaterials({ courseId, hasAccess }: Props) {
         {materials.map((material) => (
           <Card key={material.id}>
             <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center gap-3">
-              <div className="flex items-center gap-3 flex-1 min-w-0">
+              <div
+                role={hasAccess ? 'button' : undefined}
+                tabIndex={hasAccess ? 0 : undefined}
+                aria-label={hasAccess ? `Open ${material.title}` : undefined}
+                onClick={hasAccess ? () => handlePreview(material) : undefined}
+                onKeyDown={
+                  hasAccess
+                    ? (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          handlePreview(material);
+                        }
+                      }
+                    : undefined
+                }
+                className={`flex items-center gap-3 flex-1 min-w-0 rounded-lg ${
+                  hasAccess ? 'cursor-pointer hover:opacity-80 transition-opacity' : ''
+                }`}
+              >
                 <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
                   <FileText className="w-5 h-5" />
                 </div>
