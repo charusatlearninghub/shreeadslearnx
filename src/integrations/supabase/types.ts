@@ -1580,6 +1580,75 @@ export type Database = {
           },
         ]
       }
+      testimonials: {
+        Row: {
+          course_id: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          is_published: boolean
+          order_index: number
+          person_name: string
+          person_role: string | null
+          photo_url: string | null
+          rating: number
+          review_text: string
+          software_id: string | null
+          target_type: string
+          updated_at: string
+          video_url: string | null
+        }
+        Insert: {
+          course_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_published?: boolean
+          order_index?: number
+          person_name: string
+          person_role?: string | null
+          photo_url?: string | null
+          rating?: number
+          review_text: string
+          software_id?: string | null
+          target_type?: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Update: {
+          course_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_published?: boolean
+          order_index?: number
+          person_name?: string
+          person_role?: string | null
+          photo_url?: string | null
+          rating?: number
+          review_text?: string
+          software_id?: string | null
+          target_type?: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "testimonials_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "testimonials_software_id_fkey"
+            columns: ["software_id"]
+            isOneToOne: false
+            referencedRelation: "software_products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_preferences: {
         Row: {
           created_at: string
